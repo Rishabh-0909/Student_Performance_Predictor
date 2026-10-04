@@ -1,1 +1,484 @@
-<h1>Welcome to the home page</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>StudentIQ | Predictor</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <a href="{{ url_for('home') }}" class="brand">
+        Student<span>IQ</span>
+    </a>
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('home') }}">
+            Home
+        </a>
+
+        <a href="{{ url_for('predict_datapoint') }}"
+           class="active">
+            Predictor
+        </a>
+
+    </div>
+
+</nav>
+
+
+<section class="predict-page">
+
+    <div class="predict-header">
+
+        <div class="eyebrow">
+            MACHINE LEARNING PREDICTOR
+        </div>
+
+        <h1>
+            Student Performance
+            <span>Prediction</span>
+        </h1>
+
+        <p>
+            Enter the student's academic and demographic
+            information to estimate their mathematics score.
+        </p>
+
+    </div>
+
+
+    <div class="predict-layout">
+
+
+        <!-- FORM -->
+
+        <div class="prediction-card">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>Student Profile</h2>
+
+                    <p>
+                        Complete all fields to generate a prediction.
+                    </p>
+
+                </div>
+
+                <div class="model-status">
+                    <span></span>
+                    Model Ready
+                </div>
+
+            </div>
+
+
+            <form action="{{ url_for('predict_datapoint') }}"
+                  method="POST">
+
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        01 — Student Information
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="field">
+
+                            <label>Gender</label>
+
+                            <select name="gender"
+                                    required>
+
+                                <option value="" disabled selected>
+                                    Select gender
+                                </option>
+
+                                <option value="male">
+                                    Male
+                                </option>
+
+                                <option value="female">
+                                    Female
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>Race / Ethnicity</label>
+
+                            <select name="ethnicity"
+                                    required>
+
+                                <option value="" disabled selected>
+                                    Select group
+                                </option>
+
+                                <option value="group A">
+                                    Group A
+                                </option>
+
+                                <option value="group B">
+                                    Group B
+                                </option>
+
+                                <option value="group C">
+                                    Group C
+                                </option>
+
+                                <option value="group D">
+                                    Group D
+                                </option>
+
+                                <option value="group E">
+                                    Group E
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label>
+                                Parental Level of Education
+                            </label>
+
+                            <select
+                                name="parental_level_of_education"
+                                required>
+
+                                <option value="" disabled selected>
+                                    Select education level
+                                </option>
+
+                                <option value="associate's degree">
+                                    Associate's Degree
+                                </option>
+
+                                <option value="bachelor's degree">
+                                    Bachelor's Degree
+                                </option>
+
+                                <option value="high school">
+                                    High School
+                                </option>
+
+                                <option value="master's degree">
+                                    Master's Degree
+                                </option>
+
+                                <option value="some college">
+                                    Some College
+                                </option>
+
+                                <option value="some high school">
+                                    Some High School
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        02 — Academic Context
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="field">
+
+                            <label>Lunch Type</label>
+
+                            <select name="lunch"
+                                    required>
+
+                                <option value="" disabled selected>
+                                    Select lunch type
+                                </option>
+
+                                <option value="standard">
+                                    Standard
+                                </option>
+
+                                <option value="free/reduced">
+                                    Free / Reduced
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>Test Preparation</label>
+
+                            <select name="test_preparation_course"
+                                    required>
+
+                                <option value="" disabled selected>
+                                    Select status
+                                </option>
+
+                                <option value="none">
+                                    None
+                                </option>
+
+                                <option value="completed">
+                                    Completed
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        03 — Previous Scores
+                    </div>
+
+
+                    <div class="score-inputs">
+
+
+                        <div class="score-field">
+
+                            <label>
+                                Reading Score
+                            </label>
+
+                            <div class="number-wrapper">
+
+                                <input
+                                    type="number"
+                                    name="reading_score"
+                                    min="0"
+                                    max="100"
+                                    placeholder="0 — 100"
+                                    required
+                                >
+
+                                <span>/100</span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="score-field">
+
+                            <label>
+                                Writing Score
+                            </label>
+
+                            <div class="number-wrapper">
+
+                                <input
+                                    type="number"
+                                    name="writing_score"
+                                    min="0"
+                                    max="100"
+                                    placeholder="0 — 100"
+                                    required
+                                >
+
+                                <span>/100</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button type="submit"
+                        class="predict-submit">
+
+                    <span>Generate Prediction</span>
+
+                    <span>→</span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- RESULT PANEL -->
+
+        <div class="result-panel">
+
+            {% if results %}
+
+                <div class="result-success">
+
+                    <div class="result-label">
+                        PREDICTED SCORE
+                    </div>
+
+                    <div class="big-score">
+
+                        {{ results }}
+
+                        <small>/100</small>
+
+                    </div>
+
+
+                    <div class="result-meter">
+
+                        <div
+                            class="result-meter-fill"
+                            style="width: {{ results }}%;">
+                        </div>
+
+                    </div>
+
+
+                    <div class="result-description">
+
+                        {% if results >= 80 %}
+
+                            <strong>Excellent predicted performance.</strong>
+
+                            <p>
+                                The model estimates a strong mathematics
+                                score based on the submitted profile.
+                            </p>
+
+                        {% elif results >= 60 %}
+
+                            <strong>Good predicted performance.</strong>
+
+                            <p>
+                                The model estimates a solid mathematics
+                                score based on the submitted profile.
+                            </p>
+
+                        {% else %}
+
+                            <strong>Potential improvement area.</strong>
+
+                            <p>
+                                The model estimates a lower mathematics
+                                score based on the submitted profile.
+                            </p>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% elif error %}
+
+                <div class="result-error">
+
+                    <div class="error-icon">
+                        !
+                    </div>
+
+                    <h3>
+                        Prediction failed
+                    </h3>
+
+                    <p>
+                        {{ error }}
+                    </p>
+
+                </div>
+
+            {% else %}
+
+                <div class="result-empty">
+
+                    <div class="empty-icon">
+                        ✦
+                    </div>
+
+                    <h3>
+                        Your prediction
+                    </h3>
+
+                    <p>
+                        Complete the student profile and click
+                        <strong>Generate Prediction</strong>.
+                    </p>
+
+                    <div class="prediction-note">
+
+                        <span>MODEL</span>
+
+                        <strong>
+                            Automated Regression Pipeline
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <div class="brand">
+        Student<span>IQ</span>
+    </div>
+
+    <p>
+        Student Exam Performance Prediction System
+    </p>
+
+</footer>
+
+</body>
+
+</html>
